@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Sri Ganesh Engineering College — App</title>
   <style>
-    :root{--bg:#0b1220;--card:#0f1724;--muted:#9aa6b2;--text:#eef2ff;--accent:#22c55e;--ring:#38bdf8}
+    :root{--bg:#8be8f5;--card:#0f1724;--muted:#9aa6b2;--text:#eef2ff;--accent:#22c55e;--ring:#38bdf8}
     *{box-sizing:border-box}
     body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;min-height:100vh;background:linear-gradient(180deg,#071023 0%, #081427 60%),var(--bg);color:var(--text);}
     .center {display:flex;align-items:center;justify-content:center;height:100vh}
@@ -31,7 +31,7 @@ nav{display:flex;gap:8px}
 
 table{width:100%;border-collapse:collapse}
 thead th{position:sticky;top:0;background:rgba(255,255,255,0.02);padding:10px;text-align:left}
-td{padding:8px;border-top:1px solid rgba(255,255,255,0.03)}
+td{padding:8px;border-top:1px solid rgba(248, 207, 207, 0.03)}
 .scroll{max-height:58vh;overflow:auto;border-radius:10px;border:1px solid rgba(255,255,255,0.03);padding:8px}
 .pill{display:inline-flex;gap:8px;align-items:center}
 .pill input{width:18px;height:18px}
@@ -49,7 +49,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
       <div style="display:flex;align-items:center">
         <div class="logo" aria-hidden="true"></div>
         <div>
-          <h1>Sri Ganesh Engineering College</h1>
+          <h1> Sri Ganesh college of Engineering technology</h1>
           <div class="muted">Sign in to continue</div>
         </div>
       </div>
@@ -71,7 +71,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
         <div style="display:flex;align-items:center;gap:12px">
           <div class="logo" style="width:46px;height:46px;border-radius:8px"></div>
           <div>
-            <div style="font-weight:800">Sri Ganesh Engineering College</div>
+            <div style="font-weight:800"> Sri Ganesh college of Engineering technology</div>
             <div class="muted" style="font-size:0.9rem">Attendance & Student Management</div>
           </div>
         </div>
@@ -87,7 +87,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
       <div class="card">
         <div style="display:flex;justify-content:space-between;align-items:center">
           <div>
-            <h2 style="margin:0">Welcome to Sri Ganesh Engineering College</h2>
+            <h2 style="margin:0">Welcome to AI/DS students</h2>
             <div class="muted">Manage attendance, students and class sir details</div>
           </div>
           <div style="text-align:right">
@@ -143,7 +143,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
       <label>Class</label>
       <input id="p_class" required />
       <label>Group</label>
-      <select id="p_group"><option>A</option><option>B</option><option>C</option><option>D</option></select>
+      <select id="p_group"><option>AI/DS</option><option>CS</option><option>EC</option><option>EEE</option></select>
       <label>Phone</label>
       <input id="p_phone" pattern="[0-9]{10}" />
       <label>Address</label>
@@ -189,7 +189,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
   </section>
 
 </main>
-<footer>© <span id="year"></span> Sri Ganesh Engineering College — Local Demo</footer>
+<footer>© <span id="year"></span> Sri Ganesh college of Engineering technology</footer>
 
   </div>  <script>
     // ---- Config: hardcoded login creds ----
@@ -217,7 +217,7 @@ footer{color:var(--muted);text-align:center;margin:30px 0}
     function logout(){ if(confirm('Logout?')){ location.reload(); } }
 
     // ---- Attendance ----
-    const DEFAULT_30 = Array.from({length:30},(_,i)=>({name:`Student ${i+1}`,group:['A','B','C','D'][i%4],present:false}));
+    const DEFAULT_30 = Array.from({length:30},(_,i)=>({name:`Student ${i+1}`,group:['AI/DS','EC','CS','EEE'][i%4],present:false}));
     function initAttendance(){ const data = store.get('attendance_current', DEFAULT_30); store.set('attendance_current', data); renderAttendance(); }
     function renderAttendance(){ const tbody = $('#attBody'); const data = store.get('attendance_current', DEFAULT_30); tbody.innerHTML=''; let p=0; data.forEach((s,i)=>{ const tr=document.createElement('tr'); tr.innerHTML=`<td>${i+1}</td><td><input value="${escapeHtml(s.name)}" data-idx="${i}" data-key="name" oninput="updateAtt(this)" style="width:100%;padding:6px;border-radius:6px;background:transparent;border:1px solid rgba(255,255,255,0.03)"/></td><td><select data-idx="${i}" data-key="group" onchange="updateAtt(this)">${['A','B','C','D'].map(g=>`<option value="${g}" ${s.group===g?'selected':''}>${g}</option>`).join('')}</select></td><td><label class="pill"><input type=checkbox ${s.present?'checked':''} onchange="togglePresent(${i},this.checked)"/> Present</label></td>`; tbody.appendChild(tr); if(s.present) p++; }); $('#presentCount').textContent=p; $('#absentCount').textContent= (data.length - p); }
     function updateAtt(el){ const idx=+el.dataset.idx; const key=el.dataset.key; const data=store.get('attendance_current', DEFAULT_30); data[idx][key]=el.value; store.set('attendance_current', data); }
